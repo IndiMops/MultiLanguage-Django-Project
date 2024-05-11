@@ -1,0 +1,21 @@
+{% extends 'general/base.html' %}
+{% load i18n %}
+{% block meta_title %}
+  {% trans 'Список всіх книг' %}
+{% endblock %}
+{% block body %}
+  <div class="container my-3">
+    <h2 class="fw-bold mb-3">{% trans 'Список книг' %}:</h2>
+    {% if books %}
+    <ul class="list-group mx-2">
+      {% for book in books %}
+        <li class="list-group-item">
+          <a href="{% url 'book_detail' pk=book.id %}">{{ book.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>{% trans 'На сайті ще немає жодної книги.' %}</p>
+    {% endif %}
+  </div>
+{% endblock %}

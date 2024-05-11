@@ -1,0 +1,31 @@
+{% extends 'general/base.html' %}
+{% load i18n %}
+{% block meta_title %}
+  {% if book.author == None %}
+    {{ book.title }}
+  {% else %}
+    {{ book.title }} - {{ book.author }}
+  {% endif %}
+{% endblock %}
+{% block body %}
+  <div class="container py-4">
+    <ul class="list-group">
+      <li class="list-group-item">{% trans 'Назва книги' %}: {{ book.title }}</li>
+      {% if book.author != None %}
+        <li class="list-group-item">
+          {% trans 'Автор' %}: <a href="{% url 'author_detail' pk=book.author.id %}">{{ book.author }}</a>
+        </li>
+      {% else %}
+        <li class="list-group-item">{% trans 'Автор: Не надано' %}</li>
+      {% endif %}
+      {% if book.publisher != None %}
+        <li class="list-group-item">
+          {% trans 'Видавець' %}: <a href="{% url 'publisher_detail' pk=book.publisher.id %}">{{ book.publisher }}</a>
+        </li>
+      {% else %}
+        <li class="list-group-item">{% trans 'Видавець: Не надано' %}</li>
+      {% endif %}
+      <li class="list-group-item">{% trans 'Рік видання' %}: {{ book.publication_year }}</li>
+    </ul>
+  </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'general/base.html' %}
+{% load i18n %}
+{% block title %}
+  {% trans 'Головна сторінка' %}
+{% endblock %}
+{% block body %}
+<div class="container my-4">
+    <h2>{% trans 'Сайт про "всі" книги світу' %}</h2>
+    <a class="btn btn-primary" href="book">{% trans 'Переглянути католо книг' %}</a>
+</div>
+{% endblock %}

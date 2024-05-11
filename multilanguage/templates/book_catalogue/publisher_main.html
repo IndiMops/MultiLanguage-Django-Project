@@ -1,0 +1,21 @@
+{% extends 'general/base.html' %}
+{% load i18n %}
+{% block meta_title %}
+  {% trans 'Список всіх видавців' %}
+{% endblock %}
+{% block body %}
+  <div class="container my-3">
+    <h2 class="fw-bold mb-3">{% trans 'Список видавців' %}:</h2>
+    {% if publishers %}
+    <ul class="list-group mx-2">
+      {% for publisher in publishers %}
+        <li class="list-group-item">
+          <a href="{% url 'publisher_detail' pk=publisher.id %}">{{ publisher.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>{% trans 'На сайті ще немає жодної видавця.' %}</p>
+    {% endif %}
+  </div>
+{% endblock %}

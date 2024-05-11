@@ -1,0 +1,21 @@
+{% extends 'general/base.html' %}
+{% load i18n %}
+{% block meta_title %}
+  {% trans 'Список всіх авторів на сайті' %}
+{% endblock %}
+{% block body %}
+  <div class="container my-3">
+    <h2 class="fw-bold mb-3">{% trans 'Список авторів' %}:</h2>
+    {% if authors %}
+      <ul class="list-group mx-2">
+        {% for author in authors %}
+          <li class="list-group-item">
+            <a href="{% url 'author_detail' pk=author.id %}">{{ author.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>{% trans 'На сайті не має жодного автора.' %}</p>
+    {% endif %}
+  </div>
+{% endblock %}

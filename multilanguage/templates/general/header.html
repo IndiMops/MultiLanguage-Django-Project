@@ -1,0 +1,52 @@
+{% load i18n %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container-xxl">
+    <a class="navbar-brand text-wrap fw-bold" href="/">{% trans 'Книжковий світ' %}</a>
+    <div class="me-3 py-2 menu-con-divider"></div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main_page' %}">{% trans 'Головна' %}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'book_main_page' %}">{% trans 'Книги' %}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'author_main_page' %}">{% trans 'Автори' %}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'publisher_main_page' %}">{% trans 'Видавці' %}</a>
+        </li>
+        <li class="vr my-2"></li>
+        {% if user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/">{% trans 'Адмін панель' %}</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/login/">{% trans 'Увійти' %}</a>
+          </li>
+        {% endif %}
+        <li class="nav-item">
+          <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}">
+            <select name="language">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              {% for language in languages %}
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}
+                  selected{% endif %}>
+                  {{ language.name_local }}
+                </option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="{% trans 'Вперед' %}">
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
