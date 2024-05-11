@@ -1,0 +1,43 @@
+{% load mptt_tags i18n %}
+<div>
+  <ul>
+    {% recursetree nodes %}
+    <li>
+      {% if node.link %}
+        {% if node.link == '/' %}
+          <a href="/">{{ node.name }}</a>
+        {% else %}
+          <a href="{{ request.scheme }}://{{ request.get_host }}/{{ node.link }}">{{ node.name }}</a>
+        {% endif %}
+      {% else %}
+        <a href="#">{{ node.name }}</a>
+      {% endif %}
+      {% if node.children %}
+        <ul>
+          {% if children.link %}
+            <a href="{{ request.scheme }}://{{ request.get_host }}/{{ children.link }}">{{ children }}</a>
+          {% else %}
+            {{ children }}
+          {% endif %}
+        </ul>
+      {% endif %}
+    </li>
+    {% endrecursetree %}
+  </ul>
+  <form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}">
+    <select name="language">
+      {% get_current_language as LANGUAGE_CODE %}
+      {% get_available_languages as LANGUAGES %}
+      {% get_language_info_list for LANGUAGES as languages %}
+      {% for language in languages %}
+        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}
+          selected{% endif %}>
+          {{ language.name_local }}
+        </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="{% trans 'Вперед' %}">
+  </form>
+</div>

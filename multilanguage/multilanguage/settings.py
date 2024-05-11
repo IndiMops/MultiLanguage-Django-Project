@@ -34,13 +34,15 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
 INSTALLED_APPS = [
     "modeltranslation",
+    "mptt",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "book_catalogue.apps.BookCatalogueConfig"
+    "book_catalogue.apps.BookCatalogueConfig",
+    "Menu.apps.MenuConfig"
 ]
 
 MIDDLEWARE = [
@@ -161,3 +163,7 @@ SITE_ROOT = os.path.dirname(os.path.realpath(__name__))
 LOCALE_PATHS = ( os.path.join(SITE_ROOT, 'locale'), )
 
 # ------
+
+
+# MPTT Settings(Embeded Menu's)
+MPTT_ADMIN_LEVEL_INDENT = 25 # Nested list indentation
